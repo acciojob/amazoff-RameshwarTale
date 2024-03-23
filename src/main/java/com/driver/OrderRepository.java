@@ -91,16 +91,11 @@ public class OrderRepository {
 
     public List<String> findOrdersByPartnerId(String partnerId){
         // your code here
-        List<String> orderByPartner = new ArrayList<>();
-
-        if(partnerToOrderMap.containsKey(partnerId)  && partnerId!=null){
-         HashSet<String> set = partnerToOrderMap.get(partnerId);
-
-         for(String str : set){
-             orderByPartner.add(str);
-         }
+        if (partnerId != null) {
+            Set<String> orders = partnerToOrderMap.getOrDefault(partnerId, new HashSet<>());
+            return new ArrayList<>(orders);
         }
-         return orderByPartner;
+        return Collections.emptyList();
     }
 
     public List<String> findAllOrders(){
